@@ -1,11 +1,11 @@
-  <h3>{{titulo}}</h3>
+  <h3>{{titulo}} - {{porcentaje}}</h3>
   <div class="input-group mb-3">
     <div class="input-group-prepend">
       <button class="btn btn-primary" type="button" id="button-addon1" (click)="CambiarPorcentaje(-5)">
         <i class="mdi mdi-minus"></i>
       </button>
     </div>
-    <input type="text" class="form-control" [(ngModel)]="porcentaje">
+    <input type="number" class="form-control" #inputPorcentaje [(ngModel)]="porcentaje" (ngModelChange)="onChange($event)">
     <div class="input-group-append">
       <button class="btn btn-primary" type="button" id="button-addon2" (click)="CambiarPorcentaje(+5)">
         <i class="mdi mdi-plus"></i>
