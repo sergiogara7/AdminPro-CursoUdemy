@@ -20,7 +20,7 @@ export class IncrementadorComponent implements OnInit {
     //console.log(this.porcentaje);
   }
   CambiarPorcentaje(cant){
-    console.log(cant,this.porcentaje,this.porcentaje+cant);
+    //console.log(cant,this.porcentaje,this.porcentaje+cant);
     this.porcentaje=this.porcentaje+cant;
     if(this.porcentaje > 100){
       this.porcentaje=100;
