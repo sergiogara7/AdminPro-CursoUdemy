@@ -4,6 +4,7 @@ import { URL_SERVICIO } from 'src/app/config/config';
 import { Usuario } from 'src/app/models/usuario.model';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { SubirArchivoService } from '../subir-archivo/subir-archivo.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class UsuarioService {
   public token: string;
   public usuario: Usuario;
 
-  constructor(private _http: HttpClient, private router: Router) {
+  constructor(private _http: HttpClient, private router: Router, private _subirArchivoService: SubirArchivoService) {
     //console.log('Prueba usuario service');
     this.cargarStorage();
   }
@@ -26,6 +27,22 @@ export class UsuarioService {
       return resp.usuario;
     }));
   }
+
+  editarUsuario(usuario: Usuario){
+    //
+    let url = this.url + '/' + usuario._id;
+    url += '?token=' + this.token;
+    //
+    return this._http.put(url,usuario).pipe(map((resp:any)=>{
+      //
+      swal("Usuario Actualizado", resp.data.nombre + ' ' + resp.data.apellido, "success");
+      //
+      this.guardarStorage(resp.id,this.token,resp.data);
+      //
+      return true;
+    }));
+  }
+
   login(usuario: Usuario, recordar: boolean = false){
     //
     if(recordar){
@@ -45,6 +62,7 @@ export class UsuarioService {
       return true;
     }));
   }
+
   loginGoogle(token: string){
     //
     let url = URL_SERVICIO + '/login/google';
@@ -80,7 +98,7 @@ export class UsuarioService {
     this.token = token;
     this.usuario = usuario;
   }
-
+  
   cargarStorage(){
     if(localStorage.getItem('token')){
       this.token = localStorage.getItem('token');
@@ -93,5 +111,18 @@ export class UsuarioService {
 
   estaLogueado(){
     return ( this.token.length > 5 ) ? true : false;
+  }
+
+  cambiarImagen(archivo: File, id: string){
+    this._subirArchivoService.subirArchivo(archivo,'usuarios',id).then((resp: any)=>{
+      //
+      this.usuario.img = resp.data.img;
+      //
+      swal("Imagen Actualizada", resp.data.nombre + ' ' + resp.data.apellido, "success");
+      //
+      this.guardarStorage(id,this.token,this.usuario);
+    }).catch(resp=>{
+      console.log(resp);
+    });
   }
 }

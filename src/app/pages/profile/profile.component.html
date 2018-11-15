@@ -1,0 +1,52 @@
+<div class="row animated FadeIn">
+  <div class="col-lg-6">
+      <div class="card">
+          <div class="card-body">
+              <h4 class="card-title">Sample Form with the Icons</h4>
+              <h6 class="card-subtitle">made with bootstrap elements</h6>
+              <form ngNativeValidate #f="ngForm" (ngSubmit)="actualizarPerfil(f.value)" class="form p-t-20">
+                  <div class="form-group">
+                      <label for="exampleInputuname">Nombre</label>
+                      <div class="input-group">
+                          <div class="input-group-addon"><i class="ti-user"></i></div>
+                          <input [ngModel]="usuario.nombre" name="nombre" type="text" class="form-control" placeholder="Nombre" required>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="exampleInputuname">Apellido</label>
+                      <div class="input-group">
+                          <div class="input-group-addon"><i class="ti-text"></i></div>
+                          <input [ngModel]="usuario.apellido" name="apellido" type="text" class="form-control" placeholder="Apellido" required>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="exampleInputEmail1">Correo</label>
+                      <div class="input-group">
+                          <div class="input-group-addon"><i class="ti-email"></i></div>
+                          <input [ngModel]="usuario.correo" [disabled]="usuario.google" name="correo" type="email" class="form-control" id="exampleInputEmail1" placeholder="Correo" required>
+                      </div>
+                  </div>
+                  <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">
+                    <li class="fa fa-save"></li>
+                    Actualizar
+                  </button>
+              </form>
+          </div>
+      </div>
+  </div>
+    <div class="col-lg-6">
+        <div class="card" align="center">
+            <img *ngIf="!imagenTemp" [src]="usuario.img | imagen" class="card-img-top img-responsive" style="max-width: 100px">
+            <img *ngIf="imagenTemp" [src]="imagenTemp" class="card-img-top img-responsive" style="max-width: 100px">
+            <div class="card-body">
+                <h4 class="card-title">Imagen de perfil</h4>
+                <input (change)="seleccionImagen( $event.target.files[0] )" type="file"/>
+                <br><br>
+                <button (click)="cambiarImagen()" [disabled]="!imagen" type="button" class="btn btn-success waves-effect waves-light m-r-10">
+                    <li class="fa fa-save"></li>
+                    Actualizar imagen
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
