@@ -2,8 +2,8 @@
   <div class="col-lg-6">
       <div class="card">
           <div class="card-body">
-              <h4 class="card-title">Sample Form with the Icons</h4>
-              <h6 class="card-subtitle">made with bootstrap elements</h6>
+              <h4 class="card-title">Informacion general</h4>
+              <h6 class="card-subtitle">Editar {{ usuario.nombre }}</h6>
               <form ngNativeValidate #f="ngForm" (ngSubmit)="actualizarPerfil(f.value)" class="form p-t-20">
                   <div class="form-group">
                       <label for="exampleInputuname">Nombre</label>
@@ -35,12 +35,16 @@
       </div>
   </div>
     <div class="col-lg-6">
-        <div class="card" align="center">
-            <img *ngIf="!imagenTemp" [src]="usuario.img | imagen" class="card-img-top img-responsive" style="max-width: 100px">
-            <img *ngIf="imagenTemp" [src]="imagenTemp" class="card-img-top img-responsive" style="max-width: 100px">
+        <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Imagen de perfil</h4>
-                <input (change)="seleccionImagen( $event.target.files[0] )" type="file"/>
+                <h6 class="card-subtitle">Cambiar imagen</h6>
+                <div align="center">
+                    <img *ngIf="!imagenTemp" [src]="usuario.img | imagen" class="card-img-top img-responsive" style="max-width: 100px">
+                    <img *ngIf="imagenTemp" [src]="imagenTemp" class="card-img-top img-responsive" style="max-width: 100px">
+                    <hr>
+                    <input (change)="seleccionImagen( $event.target.files[0] )" class="form-control" type="file"/>
+                </div>
                 <br><br>
                 <button (click)="cambiarImagen()" [disabled]="!imagen" type="button" class="btn btn-success waves-effect waves-light m-r-10">
                     <li class="fa fa-save"></li>

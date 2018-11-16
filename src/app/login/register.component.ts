@@ -35,7 +35,7 @@ export class RegisterComponent implements OnInit {
       nombre: 'Sergio',
       apellido: 'Gallego',
       correo: 'sergio@correo.com',
-      contrasena: '2',
+      contrasena: '1',
       contrasena2: '1',
       condiciones: true
     });

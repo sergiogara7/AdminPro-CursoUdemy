@@ -35,9 +35,11 @@ export class UsuarioService {
     //
     return this._http.put(url,usuario).pipe(map((resp:any)=>{
       //
-      swal("Usuario Actualizado", resp.data.nombre + ' ' + resp.data.apellido, "success");
+      if(usuario._id === this.usuario._id){
+        this.guardarStorage(resp.id,this.token,resp.data);
+      }
       //
-      this.guardarStorage(resp.id,this.token,resp.data);
+      swal("Usuario Actualizado", resp.data.nombre + ' ' + resp.data.apellido, "success");
       //
       return true;
     }));
@@ -124,5 +126,29 @@ export class UsuarioService {
     }).catch(resp=>{
       console.log(resp);
     });
+  }
+
+  listarUsuarios(desde: number = 0){
+    //
+    let url = this.url + '?desde=' + desde;
+    //
+    return this._http.get(url);
+  }
+
+  buscarUsuarios(termino: string){
+    //
+    let url = URL_SERVICIO + '/busqueda/coleccion/usuarios/' + termino;
+    //
+    return this._http.get(url).pipe(map((resp:any)=>{
+      return resp.usuarios;
+    }));
+  }
+
+  borrarUsuario(id: string){
+    let url = this.url + '/' + id + '?token=' + this.token;
+    return this._http.delete(url).pipe(map((resp: any)=>{
+      swal('Usuario borrado','El usuario ha sido eliminado correctamente','success');
+      return true;
+    }));
   }
 }

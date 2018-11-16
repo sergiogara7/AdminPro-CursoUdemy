@@ -1,0 +1,78 @@
+<div class="row animated fadeIn">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <input #input (keyup)="buscarUsuario(input.value)" type="text" class="form-control" placeholder="Buscar ..."/>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="cargando" class="row animated fadeIn">
+  <div class="col-12">
+        <div class="alert alert-info text-center">
+          <strong>Cargando</strong>
+          <br>
+          <li class="fa fa-refresh fa-spin fa-2x"></li>
+          <br>
+          <span>Espere por favor</span>
+        </div>
+  </div>
+</div>
+<div class="row animated fadeIn">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Tabla de usuarios</h4>
+        <h6 *ngIf="paginacion" class="card-subtitle">Total de usuarios ( {{ totalRegistros }} ) </h6>
+        <h6 *ngIf="!paginacion" class="card-subtitle">Total de usuarios ( {{ 'mostrando ' + totalFiltrados + ' de ' + totalRegistros }} ) </h6>
+        <div class="table-responsive">
+          <table class="table color-bordered-table inverse-bordered-table hover-table">
+            <thead>
+              <tr>
+                <th>Foto</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Rol</th>
+                <th>Auth</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of usuarios">
+                <th>
+                  <img [src]="row.img | imagen" (click)="mostrarModalImagen(row._id)" class="img-circle pointer" style="max-width: 40px;max-height: 40px">
+                </th>
+                <th>{{ row.nombre + ' ' + row.apellido }}</th>
+                <th>{{ row.correo }}</th>
+                <th>
+                  <select [(ngModel)]="row.rol" name="rol" class="form-control">
+                    <option value="ADMIN_ROLE">Admin</option>
+                    <option value="USER_ROLE">User</option>
+                  </select>
+                </th>
+                <th class="text-center">
+                  <label *ngIf="row.google" class="label label-danger">Google</label>
+                  <label *ngIf="!row.google" class="label label-inverse">Local</label>
+                </th>
+                <th class="text-center">
+                  <button (click)="editarUsuario(row)" type="button" class="btn btn-sm btn-outline-success animated flipInX">
+                    <li class="fa fa-save"></li>
+                  </button>
+                  <button (click)="borrarUsuario(row)" type="button" class="btn btn-sm btn-outline-danger animated flipInX">
+                    <li class="fa fa-trash-o"></li>
+                  </button> 
+                </th>
+              </tr>
+            </tbody>
+          </table>
+          <div class="text-center" *ngIf="paginacion">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button (click)="cambiarDesde(-5)" type="button" class="btn btn-inverse"><i class="fa fa-fast-backward"></i> Anterior</button>
+                <button (click)="cambiarDesde(+5)" type="button" class="btn btn-inverse">Siguiente <i class="fa fa-fast-forward"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
