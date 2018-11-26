@@ -1,0 +1,41 @@
+  <div class="row animated fadeIn">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">medico: {{ medico.nombre }}</h4>
+                <h6 class="card-subtitle">Just add <code>form-material</code> class to the form that's it.</h6>
+                <form #f="ngForm" ngNativeValidate (ngSubmit)="guardarMedico( f )" class="form-material m-t-40">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input [(ngModel)]="medico.nombre" name="nombre" type="text" class="form-control form-control-line" placeholder="Nombre..." required>
+                    </div>
+                    <div class="form-group">
+                        <label>Hospital</label>
+                        <select (change)="cambioHospital( $event.target.value )" [(ngModel)]="medico.hospital" name="hospital" class="form-control form-control-line" required>
+                            <option value="">Seleccione una opcion</option>
+                            <option *ngFor="let opt of hospitales" [value]="opt._id">{{ opt.nombre }}</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
+                    <a [routerLink]="['/medicos']" class="btn btn-inverse waves-effect waves-light">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Hospital Seleccionado</h4>
+                <img [src]="hospital.img | imagen:'hospital'" class="rounded img-fluid">
+            </div>
+        </div>
+    </div>
+    <div class="col-3" *ngIf="medico._id">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Foto medico</h4>
+                <img (click)="mostrarModalImagen()" [src]="medico.img | imagen:'medico'" class="rounded img-fluid pointer">
+            </div>
+        </div>
+    </div>
+  </div>
