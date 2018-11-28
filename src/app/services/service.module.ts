@@ -6,11 +6,12 @@ import {
   SharedService, 
   SidebarService, 
   UsuarioService, 
-  LoginGuardGuard, 
   SubirArchivoService, 
   ModalUploadService,
   MedicoService,
-  HospitalService
+  HospitalService,
+  LoginGuardGuard, 
+  AdminGuard
 } from './service.index';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -25,11 +26,12 @@ import { HttpClientModule } from '@angular/common/http';
     SharedService,
     SidebarService,
     UsuarioService,
-    LoginGuardGuard,
     SubirArchivoService,
     ModalUploadService,
     HospitalService,
-    MedicoService
+    MedicoService,
+    LoginGuardGuard,
+    AdminGuard
   ]
 })
 export class ServiceModule { }

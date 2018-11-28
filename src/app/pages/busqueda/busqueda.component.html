@@ -1,0 +1,87 @@
+  <div class="row animated fadeIn">
+    <div class="col-12">
+      <div class="alert alert-info"> Mostrando {{ usuarios.length + medicos.length + hospitales.length }} resultados, filtrados por "{{ termino }}".</div>
+    </div>
+    <div class="col-4">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Usuarios</h4>
+          <h6 class="card-subtitle">Total de usuarios ( {{ usuarios.length }} ) </h6>
+          <div class="table-responsive">
+            <table class="table color-bordered-table inverse-bordered-table hover-table" *ngIf="usuarios.length > 0">
+              <thead>
+                <tr>
+                  <th>Foto</th>
+                  <th>Nombre</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of usuarios" class="pointer" [routerLink]="['/usuarios']">
+                  <th>
+                    <img [src]="row.img | imagen" class="img-circle pointer" style="max-width: 40px;max-height: 40px">
+                  </th>
+                  <th>{{ row.nombre + ' ' + row.apellido }}</th>
+                </tr>
+              </tbody>
+            </table>
+            <div class="alert alert-danger" *ngIf="usuarios.length === 0">No hay registusuarios
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Hospitales</h4>
+          <h6 class="card-subtitle">Total de hospitales ( {{ hospitales.length }} ) </h6>
+          <div class="table-responsive">
+            <table class="table color-bordered-table inverse-bordered-table hover-table" *ngIf="hospitales.length > 0">
+              <thead>
+                <tr>
+                  <th>Foto</th>
+                  <th>Nombre</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of hospitales" class="pointer" [routerLink]="['/hospitales']">
+                  <th>
+                    <img [src]="row.img | imagen:'hospital'" class="img-circle pointer" style="max-width: 40px;max-height: 40px">
+                  </th>
+                  <th>{{ row.nombre }}</th>
+                </tr>
+              </tbody>
+            </table>
+            <div class="alert alert-danger" *ngIf="hospitales.length === 0">No hay registros.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Medicos</h4>
+            <h6 class="card-subtitle">Total de medico ( {{ medicos.length }} ) </h6>
+            <div class="table-responsive">
+              <table class="table color-bordered-table inverse-bordered-table hover-table" *ngIf="medicos.length > 0">
+                <thead>
+                  <tr>
+                    <th>Foto</th>
+                    <th>Nombre</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let row of medicos" class="pointer" [routerLink]="['/medico',row._id]">
+                    <th>
+                      <img [src]="row.img | imagen:'medico'" class="img-circle pointer" style="max-width: 40px;max-height: 40px">
+                    </th>
+                    <th>{{ row.nombre }}</th>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="alert alert-danger" *ngIf="medicos.length === 0">No hay registros.</div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
