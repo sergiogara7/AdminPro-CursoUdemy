@@ -23,6 +23,22 @@ export class UsuarioService {
     //console.log('Prueba usuario service');
     this.cargarStorage();
   }
+
+  renuevaToken(){
+    //
+    let url = URL_SERVICIO + '/login/renovar' + '?token=' + this.token;
+    // llamado al servicio
+    return this._http.get(url).pipe(map((resp:any)=>{
+      console.log('token renovado');
+      this.guardarStorage(this.usuario._id,resp.token,this.usuario,this.menu);
+      return true;
+    }),catchError((err: any) => {
+      swal({title: 'Error',text: 'No se ha podido recuperar la sesion, debes iniciar de nuevo',icon: 'error'});
+      this.logout();
+      return new Observable<any>();
+    }));
+  }
+
   crearUsuario(usuario: Usuario){
     return this._http.post(this.url,usuario).pipe(map((resp:any)=>{
       swal("Usuario Creado", usuario.correo, "success");
@@ -43,7 +59,7 @@ export class UsuarioService {
     return this._http.put(url,usuario).pipe(map((resp:any)=>{
       //
       if(usuario._id === this.usuario._id){
-        this.guardarStorage(resp.id,this.token,resp.data,resp.menu);
+        this.guardarStorage(resp.data._id,this.token,resp.data,this.menu);
       }
       //
       swal("Usuario Actualizado", resp.data.nombre + ' ' + resp.data.apellido, "success");
@@ -73,8 +89,7 @@ export class UsuarioService {
     catchError((err: any) => {
       swal({title: 'Error',text: err.error.message,icon: 'error'});
       return new Observable<any>();
-    })
-    );
+    }));
   }
 
   loginGoogle(token: string){

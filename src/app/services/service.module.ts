@@ -11,7 +11,8 @@ import {
   MedicoService,
   HospitalService,
   LoginGuardGuard, 
-  AdminGuard
+  AdminGuard,
+  VerificaTokenGuard
 } from './service.index';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -31,7 +32,8 @@ import { HttpClientModule } from '@angular/common/http';
     HospitalService,
     MedicoService,
     LoginGuardGuard,
-    AdminGuard
+    AdminGuard,
+    VerificaTokenGuard
   ]
 })
 export class ServiceModule { }
