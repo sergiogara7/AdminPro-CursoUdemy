@@ -29,7 +29,7 @@ export class UsuarioService {
     let url = URL_SERVICIO + '/login/renovar' + '?token=' + this.token;
     // llamado al servicio
     return this._http.get(url).pipe(map((resp:any)=>{
-      console.log('token renovado');
+      //console.log('token renovado');
       this.guardarStorage(this.usuario._id,resp.token,this.usuario,this.menu);
       return true;
     }),catchError((err: any) => {

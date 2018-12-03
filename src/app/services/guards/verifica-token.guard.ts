@@ -18,8 +18,7 @@ export class VerificaTokenGuard implements CanActivate {
     let token = this._usuarioService.token;
     //
     let payload = JSON.parse( atob(token.split('.')[1]) );
-    console.log(payload.exp);
-    
+    //console.log(payload.exp);
     //
     let expirado = this.expirado(payload.exp)
     //
@@ -38,8 +37,8 @@ export class VerificaTokenGuard implements CanActivate {
       let ahora = new Date();
       //
       ahora.setTime( ahora.getTime() + ( 1 * 60 * 60 * 1000));
-      console.log(ahora);
-      console.log(tokenExp);
+      //console.log(ahora);
+      //console.log(tokenExp);
       //
       if(tokenExp.getTime() > ahora.getTime()){
         resolve(true);
